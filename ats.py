@@ -28,22 +28,22 @@ def get_record(card):
     except AttributeError:
         salary='Not Listed'
     record = (job_title, company, location, salary, date_posted, today, snippet, job_url)
-
-    return record 
+    return record
 
 def main(position, location):
     """Run the main program routine"""
     records = []
     url = get_url(position, location)
-
+    
     while True:
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         cards = soup.find_all('div', 'slider_container')
-
+           
         for card in cards: 
             record = get_record(card)
             records.append(record)
+            
         try:
             url = 'https://www.indeed.com' + soup.find('a', {'aria-label': 'Next'}).get('href')
         except AttributeError:
