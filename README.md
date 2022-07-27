@@ -84,4 +84,4 @@ And you can then format it like so and if you are using this scraper to find job
 
 <img src='images/Screen Shot 2022-07-27 at 11.37.42 AM.png'/>
 
-This simple project can be made in under 75 lines of code but can be easily expanded to include a filter to only show specific jobs with a certain salary, or only if they include Full Stack in the title, etc. It was super fun working on this and learning Python for the first time. Have fun with this repo!
+This simple project can be made in under 75 lines of code but can be easily expanded to include a filter to only show specific jobs with a certain salary, or only if they include Full Stack in the title, etc. It was super fun working on this and learning Python for the first time. Theres plenty of helpful resources out there if you get stuck. Have fun with this repo options are almost endless with the different sites you could scrape just do your research before hand!
