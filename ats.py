@@ -4,16 +4,19 @@ from turtle import position
 from urllib import response
 from xml.dom.minidom import Attr
 import requests
+# BeautifulSoup is python library for pulling data from HTML or XML
 from bs4 import BeautifulSoup
 import soupsieve
 
 def get_url(position, location):
-    """Generate a url from position and location"""
+    # Pick a url to use and look at syntax
+    # https://www.indeed.com/jobs?q=full+stack+developer&l=san+diego+ca&jobs.html
     template = 'https://www.indeed.com/q-{}-l-{}-jobs.html'
     url= template.format(position, location)
     return url
 
 def get_record(card):
+    # Chrome inspector and pulling specific div names with info you need
     spantag = card.h2.a.span
     hreftag = card.h2.a
     job_title = spantag.get('title')
@@ -36,6 +39,7 @@ def main(position, location):
     url = get_url(position, location)
     
     while True:
+        # Begins the request to the website for HTML and looks for the specific job card
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         cards = soup.find_all('div', 'slider_container')
@@ -45,13 +49,16 @@ def main(position, location):
             records.append(record)
             
         try:
+            # Goes through every page of listings until there are no more
             url = 'https://www.indeed.com' + soup.find('a', {'aria-label': 'Next'}).get('href')
         except AttributeError:
             break
     
     with open('results.csv', 'w', newline='', encoding='utf-8') as f:
+        # Saving the data into a csv file
         writer = csv.writer(f)
         writer.writerow(['Job Title', 'Company', 'Location', 'Salary', 'Date Posted', 'Todays Date', 'Summary', 'URL'])
         writer.writerows(records)
 
 main('full stack developer', 'san diego, ca')
+# Runs the function 
